@@ -15,7 +15,7 @@ const connect = async () => {
     try {
         mongoose.connect(MONGO_URI, {
             dbName: 'monite',
-            bufferCommands: false,
+            bufferCommands: true,
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
