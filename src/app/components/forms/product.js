@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useState, useEffect, useContext} from 'react';
-import Input from '@/components/input';
 import Label from '@/components/label';
 import Button from '@/components/button';
 import Checkbox from '@/components/checkbox';

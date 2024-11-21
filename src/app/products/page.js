@@ -5,7 +5,9 @@ import Header from "@/components/header";
 import Table from "@/components/table";
 import Modal from "@/components/modal";
 import ProductForm from "@/components/forms/product";
-import Loading from "./loading";
+import Image from 'next/image';
+import loading from '@/public/loading.svg';
+
 import {NotificationContext} from "notification-provider";
 
 const PRODUCTS_API = '/api/products';
@@ -43,6 +45,13 @@ const columns = [
         }
     }
 ];
+
+const Loading = () => {
+    return <div className='p-12 text-center w-full flex justify-center'>
+        <Image src={loading} alt="loading" />
+    </div>;
+};
+
 
 const Products = () => {
     // Hook to set the modal state, visible or hidden
