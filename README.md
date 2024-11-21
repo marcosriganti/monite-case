@@ -20,16 +20,24 @@ Here you can see the planned use of the app, along with the related hooks and fe
 
 ![Screenshot 2024-11-21 at 1 37 07 AM](https://github.com/user-attachments/assets/922299f4-6ef6-446e-8320-58cdac066d23)
 
-This systems was easily made using the followings techs
+This systems was easily made using the followings stack
 - NextJS
 - TailWind CSS
 - MongoDB
 - Copilot was ocasionally used along VS Code.
 
+NextJS was choosen due the optimization and the facility to have API endpoints to be consumed.
+TailWind was as well choise to focus the project in the logical code above the styles
+Mongo was an open free option quick to be implemented in the endpoint 
+Copilot has been always convenient to save time, all knowledge verification has come first from oficial latest documentation. 
 
 ## Initial Running as Next JS project:
 
-First, run the development server:
+
+First create the .env  file with the following key 
+
+MONGO_URI=mongodb+srv://xxxx:xxxx@cluster0.jxx10.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
 
 ```bash
 npm run dev
