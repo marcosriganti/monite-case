@@ -56,11 +56,12 @@ const Loading = () => {
 const Products = () => {
     // Hook to set the modal state, visible or hidden
     const [modal, setModal] = useState(false);
-    // Hook to set the data state, fetched from the API
+    // Getting access to the Notification Context
     const {setNotification, clear} = useContext(NotificationContext);
-
+    // Hook to set the data state, fetched from the API
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
+
     const fetchData = () => {
         // Fetch products from the API, was creating using MongoDB NextJS API.
         fetch(PRODUCTS_API)
@@ -70,6 +71,7 @@ const Products = () => {
                 setLoading(false);
             });
     };
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -114,7 +116,7 @@ const Products = () => {
                     <Button variant={'secondary'}>Guide Me </Button>
                 </div>
                 <Button onClick={handleAddProduct} variant={'primary'}>Add Product</Button>
-            </div >
+            </div>
             {isLoading ? <Loading /> : <Table columns={columns} data={data} />}
         </div>
         <Modal visible={modal} onClose={handleClose} title={`Add new product`} >

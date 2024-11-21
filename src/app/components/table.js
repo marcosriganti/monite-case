@@ -11,6 +11,7 @@ const Table = (props) => {
                     {columns.map((column) => {
                         return <th key={column.key} className="px-6 py-3 text-gray-500 font-medium text-xs text-center">{column.label}</th>;
                     })}
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,13 @@ const Table = (props) => {
                                 className="px-6 py-3 text-gray-500 font-medium text-sm text-center"
                             >{column.format ? column.format(row[column.key]) : row[column.key]}</td>;
                         })}
+                        <td>
+                            <div className="flex justify-center items-center gap-4">
+                                <button className="text-gray-500">
+                                    <i className="fa fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </td>
                     </tr>;
                 })}
             </tbody>

@@ -26,6 +26,7 @@ const AutoComplete = ({id, name, options, handleNew, ...rest}) => {
 
     };
     return <div className='relative'>
+        {val !== '' && <button type='button' className='absolute text-gray-500 right-0 top-0 p-2' onClick={() => {setVal(''); setSelected('');}}><i className='fa fa-times'></i></button>}
         <Input id={id} onChange={handleChange} value={val} onFocus={onFocus} onBlur={onBlur} {...rest} />
         <Input type='hidden' name={name} value={selected} />
         {displayList && <ul className='shadow-md bg-white rounded text-sm absolute w-full'>

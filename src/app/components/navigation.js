@@ -5,47 +5,47 @@ const options = {
         {
             'path': '/',
             'name': 'Home',
-            'icon': 'home',
+            'icon': 'tachometer',
         },
         {
             'path': '/transactions',
             'name': 'Transactions',
-            'icon': 'transaction',
+            'icon': 'exchange',
         },
         {
             'path': '/invoices',
             'name': 'Invoices',
-            'icon': 'invoice',
+            'icon': 'file',
         },
         {
             'path': '/incoming-bills',
             'name': 'Incoming Bills',
-            'icon': 'incoming',
+            'icon': 'dollar',
         },
         {
             'path': '/expenses',
             'name': 'Expenses',
-            'icon': 'expenses',
+            'icon': 'book',
         },
         {
             'path': '/accounting',
             'name': 'Accounting',
-            'icon': 'accounting',
+            'icon': 'calculator',
         },
         {
             'path': '/team',
             'name': 'Team',
-            'icon': 'people',
+            'icon': 'users',
         },
         {
             'path': '/other',
             'name': 'Other',
-            'icon': 'box',
+            'icon': 'ellipsis-h',
         },
         {
             'path': '/settings',
             'name': 'Settings',
-            'icon': 'settings',
+            'icon': 'cog',
         }
     ]
 };

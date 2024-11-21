@@ -5,7 +5,7 @@ const NavigationLink = (props) => {
     const {name, path, icon} = props;
     return (
         <Link href={path} className="flex items-center gap-4 text-gray-700 hover:text-gray-900">
-            {icon && icons[icon]}
+            {icon && <i className={`fa fa-${icon}`}></i>}
             {name}
         </Link>
     );
