@@ -16,7 +16,7 @@ const GET = async () => {
 const POST = async (req) => {
     try {
         await connect();
-        // Recieves the FormData created in the client side
+        // Receives the FormData created in the client side
         const formData = await req.formData();
         // Parse to be used in the schema
         const data = Object.fromEntries(formData);

@@ -1,10 +1,12 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import Button from "@/components/button";
 import Header from "@/components/header";
 import Table from "@/components/table";
 import Modal from "@/components/modal";
 import ProductForm from "@/components/forms/product";
+import Loading from "./loading";
+import {NotificationContext} from "notification-provider";
 
 const PRODUCTS_API = '/api/products';
 
@@ -46,6 +48,8 @@ const Products = () => {
     // Hook to set the modal state, visible or hidden
     const [modal, setModal] = useState(false);
     // Hook to set the data state, fetched from the API
+    const {setNotification, clear} = useContext(NotificationContext);
+
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const fetchData = () => {
@@ -73,10 +77,11 @@ const Products = () => {
             // set the Notification 
             // We add the product to the current list, or we can as well call fetchData to refetch the products
             setData([...data, newProduct]);
-
+            setNotification(`The product '${newProduct.name}' has been added`, 'success');
+            setTimeout(clear, 3000); // Clears the notification after 3 seconds
             ev.currentTarget?.reset();
         } catch (error) {
-            console.error('Error:', error);
+            setNotification('An error occurred while adding the product:' + error, 'error');
         }
         // Close the Modal
         handleClose();
@@ -91,7 +96,7 @@ const Products = () => {
         setModal(false);
     };
 
-    return <>
+    return (<>
         <div className="px-4">
             <div className="justify-between	flex flex-row items-center mb-8">
                 {/* Header */}
@@ -101,13 +106,11 @@ const Products = () => {
                 </div>
                 <Button onClick={handleAddProduct} variant={'primary'}>Add Product</Button>
             </div >
-
-            {!isLoading && <Table columns={columns} data={data} />}
+            {isLoading ? <Loading /> : <Table columns={columns} data={data} />}
         </div>
         <Modal visible={modal} onClose={handleClose} title={`Add new product`} >
             <ProductForm onSubmit={handleSubmit} onClose={handleClose} />
         </Modal>
-    </>;
-
+    </>);
 };
 export default Products;

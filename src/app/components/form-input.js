@@ -5,7 +5,7 @@ import Input from '@/components/input';
 const FormInput = ({label, id, name, placeholder, type = 'text', ...props}) => {
     return (<>
         <Label id={id}> {label}</Label >
-        <Input type={type} id={id} placeholder={placeholder || ''} name={name}
+        <Input type={type} id={id} placeholder={placeholder || ''} name={name} {...props}
         />
     </>);
 };
