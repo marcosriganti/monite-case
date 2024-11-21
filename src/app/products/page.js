@@ -19,7 +19,10 @@ const columns = [
     },
     {
         label: 'Units',
-        key: 'units'
+        key: 'unit',
+        format: (value) => {
+            return value.name;
+        }
     },
     {
         label: 'Price',
@@ -71,7 +74,7 @@ const Products = () => {
             // We add the product to the current list, or we can as well call fetchData to refetch the products
             setData([...data, newProduct]);
 
-            ev.currentTarget.reset();
+            ev.currentTarget?.reset();
         } catch (error) {
             console.error('Error:', error);
         }

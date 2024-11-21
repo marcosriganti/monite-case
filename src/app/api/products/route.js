@@ -5,7 +5,7 @@ import Product from "@/lib/modals/products";
 const GET = async () => {
     try {
         await connect();
-        const products = await Product.find();
+        const products = await Product.find().populate('unit'); // gets the unit data from the Unit model
         return new NextResponse(JSON.stringify(products), {status: 200});
     } catch (err) {
         console.error(err);
@@ -22,6 +22,7 @@ const POST = async (req) => {
         const data = Object.fromEntries(formData);
         const product = new Product(data);
         await product.save();
+        await product.populate('unit');
         return new NextResponse(JSON.stringify(product), {status: 201});
     }
     catch (err) {

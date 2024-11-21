@@ -27,11 +27,13 @@ const FormTextarea = ({label, id, placeholder, ...props}) => {
 const AutoComplete = ({id, name, options, handleNew, ...rest}) => {
     const [val, setVal] = useState('');
     const [displayList, setDisplayList] = useState(false);
+    const [selected, setSelected] = useState('');
     const onFocus = () => setDisplayList(true);
     const onBlur = () => setTimeout(() => setDisplayList(false), 200);
     const handleChange = (e) => {
         setVal(e.target.value.trim());
     };
+
 
     const filtered = options.filter(el => {
         return el.name.toLowerCase().includes(val.trim().toLowerCase());
@@ -40,16 +42,19 @@ const AutoComplete = ({id, name, options, handleNew, ...rest}) => {
         ev.preventDefault();
         handleNew(val);
     };
-    const handleOptionClick = (ev, value) => {
+    const handleOptionClick = (ev, id, value) => {
         ev.preventDefault();
+        setSelected(id);
         setVal(value);
+
     };
     return <div className='relative'>
-        <Input id={id} name={name} onChange={handleChange} value={val} onFocus={onFocus} onBlur={onBlur} />
+        <Input id={id} onChange={handleChange} value={val} onFocus={onFocus} onBlur={onBlur} />
+        <Input type='hidden' name={name} value={selected} />
         {displayList && <ul className='shadow-md bg-white rounded text-sm absolute w-full'>
             {filtered.length === 0 && val !== '' ? <li className='border-b p-3 '><button type='button' onClick={handleNewItem}>{`Create '${val}' as a new unit`}</button></li> : <li className='font-bold border-b p-3 '>Select a unit or start typing a new one</li>}
             {filtered.map((option) => {
-                return <li key={option._id} value={option.name} className='border-b p-3 '><button type='button' className='w-full text-left' onClick={e => handleOptionClick(e, option.name)}>{option.name}</button></li>;
+                return <li key={option._id} value={option._id} className='border-b p-3 '><button type='button' className='w-full text-left' onClick={e => handleOptionClick(e, option._id, option.name)}>{option.name}</button></li>;
             })}
         </ul>}
     </div>;
@@ -58,15 +63,18 @@ const AutoComplete = ({id, name, options, handleNew, ...rest}) => {
 const ProductForm = ({onSubmit, onClose}) => {
     // Fetch the available units from the API
     const [units, setUnits] = useState([]);
+    const [loadingUnits, setLoadingUnits] = useState(false);
     const fetchData = () => {
         fetch(UNITS_API)
             .then((res) => res.json())
             .then((data) => {
                 setUnits(data);
+                setLoadingUnits(false);
             });
     };
 
     const handleNewUnit = (unit) => {
+        setLoadingUnits(true);
         fetch(UNITS_API, {
             method: 'POST',
             body: JSON.stringify({name: unit}),
@@ -79,8 +87,10 @@ const ProductForm = ({onSubmit, onClose}) => {
             });
     };
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (!loadingUnits) {
+            fetchData();
+        }
+    }, [loadingUnits]);
 
     const handleClose = () => {
         if (onClose)
@@ -107,8 +117,8 @@ const ProductForm = ({onSubmit, onClose}) => {
                 <FormTextarea label="Description" id="description" name="description" placeholder="Enter description" rows="2" />
             </div>
             <div>
-                <Label id={'units'}>Units</Label>
-                <AutoComplete id="units" name="units" options={units} handleNew={handleNewUnit} />
+                <Label id={'unit'}>Units</Label>
+                <AutoComplete id="unit" name="unit" options={units} handleNew={handleNewUnit} />
             </div>
             <div>
                 <FormInput label="Unit price(net)" id="price" name="price" type='number' placeholder="€ 0.00" />

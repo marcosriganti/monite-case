@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({children, onClick, variant, ...rest}) => {
+const Button = ({children, onClick, variant, type = 'button', ...rest}) => {
     const handleClick = (ev) => {
         if (onClick) {
             onClick(ev);
@@ -20,7 +20,7 @@ const Button = ({children, onClick, variant, ...rest}) => {
     }
 
     return (
-        <button onClick={handleClick} className={style} {...rest}>
+        <button onClick={handleClick} type={type} className={style} {...rest}>
             {children}
         </button>
     );
